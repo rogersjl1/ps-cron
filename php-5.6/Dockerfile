@@ -2,21 +2,21 @@ FROM php:5.6-apache
 
 RUN apt-get update \
 	&& apt-get install -y libmcrypt-dev \
-		libjpeg62-turbo-dev \
-		libpcre3-dev \
-		libpng12-dev \
-		libfreetype6-dev \
-		libxml2-dev \
-		libicu-dev \
-		mysql-client \
-		wget \
-		unzip \
-    libmemcached-dev \
-    supervisor \
-		cron \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install iconv intl mcrypt pdo pdo_mysql mbstring soap gd zip
+	libjpeg62-turbo-dev \
+	libpcre3-dev \
+	libpng12-dev \
+	libfreetype6-dev \
+	libxml2-dev \
+	libicu-dev \
+	mysql-client \
+	wget \
+	unzip \
+	libmemcached-dev \
+	supervisor \
+	cron \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+	&& docker-php-ext-install iconv intl mcrypt pdo pdo_mysql mbstring soap gd zip
 
 RUN docker-php-source extract \
 	&& if [ -d "/usr/src/php/ext/mysql" ]; then docker-php-ext-install mysql; fi \
@@ -25,11 +25,6 @@ RUN docker-php-source extract \
 
 # Apache configuration
 RUN a2enmod rewrite
-
-# PECL extensions
-RUN set -ex \
-        && pecl install memcached-3.0.3 \
-        && docker-php-ext-enable memcached
 
 # PHP configuration
 COPY php.ini /usr/local/etc/php/
