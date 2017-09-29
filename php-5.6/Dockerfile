@@ -23,11 +23,11 @@ RUN docker-php-source extract \
 	&& if [ -d "/usr/src/php/ext/opcache" ]; then docker-php-ext-install opcache; fi \
 	&& docker-php-source delete
 
-# Apache configuration
-RUN a2enmod rewrite
-
 # PHP configuration
 COPY php.ini /usr/local/etc/php/
+
+# Apache configuration
+RUN a2enmod rewrite
 
 COPY supervisord.conf /etc/supervisord.conf
 
