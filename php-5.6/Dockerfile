@@ -16,7 +16,9 @@ RUN apt-get update \
 	cron \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install iconv intl mcrypt pdo pdo_mysql mbstring soap gd zip
+	&& docker-php-ext-install iconv intl mcrypt pdo pdo_mysql mbstring soap gd zip \
+	&& pecl install memcached-2.2.0 \
+	&& docker-php-ext-enable memcached
 
 RUN docker-php-source extract \
 	&& if [ -d "/usr/src/php/ext/mysql" ]; then docker-php-ext-install mysql; fi \
