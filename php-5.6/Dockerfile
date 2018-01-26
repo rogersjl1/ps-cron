@@ -33,6 +33,6 @@ RUN a2enmod rewrite
 
 COPY supervisord.conf /etc/supervisord.conf
 
-VOLUME ["/var/www/html"]
+VOLUME ["/var/www/html", "/etc/cron.d"]
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
